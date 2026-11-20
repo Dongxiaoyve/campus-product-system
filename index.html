@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>校园商品信息查询</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f3f6fa;color:#1f2937;font-family:system-ui,-apple-system,"Microsoft YaHei",sans-serif}
+header{background:#174a78;color:white;padding:28px 18px;text-align:center}header h1{margin:0 0 8px;font-size:25px}header p{margin:0;opacity:.9}
+main{max-width:760px;margin:24px auto;padding:0 16px}.card{background:white;border-radius:16px;padding:22px;box-shadow:0 5px 20px #172b4d12}
+.tag{display:inline-block;background:#e8f2fb;color:#175589;padding:5px 11px;border-radius:20px;font-size:13px}
+h2{margin:14px 0 18px;font-size:25px}.row{display:flex;justify-content:space-between;gap:16px;padding:14px 0;border-bottom:1px solid #edf0f4}.row:last-child{border:0}.label{color:#64748b}.value{font-weight:650;text-align:right}
+.note{color:#64748b;font-size:13px;line-height:1.7;margin-top:18px}.list{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px}.item{display:block;text-decoration:none;color:inherit;background:white;padding:18px;border-radius:14px;box-shadow:0 4px 16px #172b4d10}.item b{display:block;font-size:18px;margin-bottom:8px}.item span{color:#64748b;font-size:14px}
+</style></head>
+<body><header><h1>校园商品信息查询系统</h1><p>扫码查询商品编号、类别、价格与库存</p></header>
+<main id="app"></main>
+<script>
+const products = [{"name": "矿泉水", "id": "SP0001", "category": "饮料", "price": "2元", "stock": "100瓶"}, {"name": "可乐", "id": "SP0002", "category": "饮料", "price": "3元", "stock": "80瓶"}, {"name": "面包", "id": "SP0003", "category": "食品", "price": "5元", "stock": "50个"}, {"name": "饼干", "id": "SP0004", "category": "食品", "price": "4元", "stock": "60包"}, {"name": "方便面", "id": "SP0005", "category": "食品", "price": "4.5元", "stock": "70桶"}, {"name": "牛奶", "id": "SP0006", "category": "乳制品", "price": "3.5元", "stock": "40盒"}];
+const params=new URLSearchParams(location.search), id=params.get('id');
+const app=document.getElementById('app');
+if(id){const p=products.find(x=>x.id===id);if(p){app.innerHTML=`<section class="card"><span class="tag">商品详情</span><h2>${p.name}</h2><div class="row"><span class="label">商品编号</span><span class="value">${p.id}</span></div><div class="row"><span class="label">商品类别</span><span class="value">${p.category}</span></div><div class="row"><span class="label">商品价格</span><span class="value">${p.price}</span></div><div class="row"><span class="label">库存数量</span><span class="value">${p.stock}</span></div><p class="note">本页面为课程设计演示页面，商品价格和库存为示例数据。</p><p><a href="./">返回商品列表</a></p></section>`;}else{app.textContent='未找到该商品，请检查二维码编号。';}}
+else{app.innerHTML='<section class="list">'+products.map(p=>`<a class="item" href="?id=${p.id}"><b>${p.name}</b><span>${p.id} · ${p.category} · ${p.price}</span></a>`).join('')+'</section><p class="note">课程设计演示数据，仅供学习展示。</p>';}
+</script></main></body></html>
